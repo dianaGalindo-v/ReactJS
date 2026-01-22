@@ -49,7 +49,7 @@ function ProfileComponent(){
 }
 
 function FeedComponent(){
-  const users =[
+  const materiales =[
     {id: 1, name: 'Cemento', role: 'Pegamento'},
     {id: 2, name: 'Arena', role: 'Ingrediente'},
     {id: 3, name: 'Alambre', role: 'Sujetar'},
@@ -61,9 +61,9 @@ function FeedComponent(){
     <p>Lista de materiales</p>
     <ul>
       {
-      users.map(function(user,index){
+      materiales.map(function(materiales,index){
         return (
-          <li key={index}>{user.name} es un {user.role}</li>
+          <li key={index}>{materiales.name} es un {materiales.role}</li>
         )
       })
     }
