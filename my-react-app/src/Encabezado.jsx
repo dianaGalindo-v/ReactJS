@@ -3,10 +3,10 @@ import facebook from './assets/facebook.png';
 import instagram from './assets/instagram.png';
 import gmail from './assets/gmail.png';
 import tiktok from './assets/tik-tok.png';
-
+import './Encabezado.css';
 function Encabezado(){
     return (
-        <div>
+        <div className="Encabezado">
             <Logo />
             <Menu />
             <Redes />
@@ -17,7 +17,7 @@ function Encabezado(){
 
 function Logo(){
     return (
-        <div>
+        <div className="Logo">
             <img src={miLogo} alt="React Logo" />
         </div>
     );
