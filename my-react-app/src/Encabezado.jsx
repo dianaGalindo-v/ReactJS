@@ -10,14 +10,14 @@ function Encabezado(){
             <Logo />
             <Menu />
             <Redes />
-            <h2>Bienvenido a mi sitio</h2>
+            <h2></h2>
         </div>
     );
 }
 
 function Logo(){
     return (
-        <div className="Logo">
+        <div className="LogoDiv">
             <img src={miLogo} alt="React Logo" />
         </div>
     );
@@ -26,28 +26,28 @@ function Logo(){
 
 function Menu(){
     return (
-        <nav>
+        <div className="MenuNav">
             <ul>
-                <li>Inicio</li>
-                <li>Acerca de</li>
-                <li>Productos</li>
-                <li>Contacto</li>
-                <li>Sucursales</li>
+                <li><a href='#'>Inicio</a></li>
+                <li><a href='#'>Acerca de</a></li>
+                <li><a href='#'>Productos</a></li>
+                <li><a href='#'>Contacto</a></li>
+                <li><a href='#'>Sucursales</a></li>
             </ul>
-        </nav>
-    );
+        </div>    
+        );
 }
 
 function Redes(){
     return (
-        <nav>
+        <div className="RedesDiv">
             <ul>
-                <li><img src={facebook} alt="Facebook" /></li> 
-                <li><img src={instagram} alt="Instagram" /></li>
-                <li><img src={gmail} alt="Gmail" /></li>
-                <li><img src={tiktok} alt="TikTok" /></li>
+                <li><a href='#'><img src={facebook} alt="Facebook" /></a></li> 
+                <li><a href='#'><img src={instagram} alt="Instagram" /></a></li>
+                <li><a href='#'><img src={gmail} alt="Gmail" /></a></li>
+                <li><a href='#'><img src={tiktok} alt="TikTok" /></a></li>
             </ul>
-        </nav>
+        </div>
     );
 }
 export default Encabezado

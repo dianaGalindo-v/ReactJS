@@ -1,15 +1,57 @@
 h2{
-    color: rgb(204, 159, 245);
+    color: rgb(225, 163, 253);
 }
 h1{
-    color: rgb(168, 90, 241);
+    color: rgb(228, 139, 250);
 }
 .Encabezado{
     background-color: blanchedalmond;
+    width: 100;
+    display: flex;
 }
 .Logo img{
-    width: 100px;
+    width: 100%px;
 }
 .Redes img{
     width: 100px;
+}
+.Logo{
+    width: 25%;
+    background-color: rgb(127, 168, 245);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.Logo{
+    width: 400;
+}
+.MenuDiv{
+    width: 100%;
+    background-color: antiquewhite;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.MenuDiv ul{
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgb(204, 150, 248);
+}
+.RedesDiv{
+    width: 80%;
+    background-color: blanchedalmond;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.RedesDiv ul{
+    list-style: none;
+    text-decoration: none;
+    display: flex;
+}
+.RedesDiv img{
+    width: 30px;
 }
