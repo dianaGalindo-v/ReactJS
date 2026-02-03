@@ -10,7 +10,6 @@ function Encabezado(){
             <Logo />
             <Menu />
             <Redes />
-            <h2></h2>
         </div>
     );
 }
@@ -35,7 +34,7 @@ function Menu(){
                 <li><a href='#'>Sucursales</a></li>
             </ul>
         </div>    
-        );
+    );
 }
 
 function Redes(){

@@ -18,7 +18,7 @@ function App(){
       <ProfileComponent />
       <FeedComponent />
     </div>
-  )
+  );
 }
 
 
@@ -26,7 +26,7 @@ function UserComponent(){
   const nombre = 'Diana';
   const apellidos = 'Galindo Vergara';
   const nombrecompleto = <h2>El nombre es: {nombre} y sus apellidos {apellidos}</h2>;
-  return <h1>User Component {nombrecompleto}</h1>;
+  return <h1>User Component {nombrecompleto}</h1>
 }
 
 
@@ -48,7 +48,7 @@ function ProfileComponent(){
       })
     }
     </ul>
-    </>
+  </>
   );
 }
 

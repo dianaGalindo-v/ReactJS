@@ -8,6 +8,8 @@ h1{
     background-color: blanchedalmond;
     width: 100;
     display: flex;
+    align-items: center;
+    gap: 10px;
 }
 .Logo img{
     width: 100%px;
