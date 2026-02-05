@@ -1,5 +1,5 @@
 import './ContenedorTarjetas.css';
-import valentineTarj from './assets/valentineTarj.jpg';
+import bandolera from './assets/bandolera.jpg';
 function ContenedorTarjetas(){
     return(
         <div className="ContenedorTarjetas">
@@ -19,8 +19,8 @@ function ContenedorTarjetas(){
 function Tarjeta(){
     return(
         <div className="tarjeta">
-            <img src={valentineTarj} alt="valentineTarj" />
-            <h3>Esta es una tarjeta</h3>
+            <img src={bandolera} alt="bandolera" />
+            <h3>Bandolera</h3>
             <p>Aqui va el texto</p>
             
         </div>

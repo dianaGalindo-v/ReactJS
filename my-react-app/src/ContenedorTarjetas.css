@@ -1,8 +1,8 @@
 .ContenedorTarjetas{
-    height: 400px;
-	width: 90vw;
-	max-width: 1400px;
-	margin: 20px auto;
+    height: 450px;
+	width: 95vw;
+	max-width: 1500px;
+	margin: 30px auto;
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
