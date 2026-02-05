@@ -25,7 +25,7 @@ function Logo(){
 
 function Menu(){
     return (
-        <div className="MenuNav">
+        <div className="MenuDiv">
             <ul>
                 <li><a href='#'>Inicio</a></li>
                 <li><a href='#'>Acerca de</a></li>
@@ -41,10 +41,10 @@ function Redes(){
     return (
         <div className="RedesDiv">
             <ul>
-                <li><a href='#'><img src={facebook} alt="Facebook" /></a></li> 
-                <li><a href='#'><img src={instagram} alt="Instagram" /></a></li>
-                <li><a href='#'><img src={gmail} alt="Gmail" /></a></li>
-                <li><a href='#'><img src={tiktok} alt="TikTok" /></a></li>
+                <li className="redes"> <a href='#'> <img src={facebook} alt="Facebook" /></a></li> 
+                <li className="redes"> <a href='#'> <img src={instagram} alt="Instagram" /></a></li>
+                <li className="redes"> <a href='#'> <img src={gmail} alt="Gmail" /></a></li>
+                <li className="redes"> <a href='#'> <img src={tiktok} alt="TikTok" /></a></li>
             </ul>
         </div>
     );

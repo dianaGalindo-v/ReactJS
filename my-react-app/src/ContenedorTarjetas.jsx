@@ -1,8 +1,8 @@
-import '.src/ContenedorTarjeta.css';
-import valentineTarj from './assets/valentineTarj';
-function ContenedorTarjeta(){
+import './ContenedorTarjetas.css';
+import valentineTarj from './assets/valentineTarj.jpg';
+function ContenedorTarjetas(){
     return(
-        <div className="ContenedorTarjeta">
+        <div className="ContenedorTarjetas">
             <div className="tarjetasWrapper">
                 <div className="contenedorHorizontal">
                     <div className="tarjetas">
@@ -18,7 +18,7 @@ function ContenedorTarjeta(){
 }
 function Tarjeta(){
     return(
-        <div className="Tarjeta">
+        <div className="tarjeta">
             <img src={valentineTarj} alt="valentineTarj" />
             <h3>Esta es una tarjeta</h3>
             <p>Aqui va el texto</p>
@@ -26,4 +26,4 @@ function Tarjeta(){
         </div>
     );
 }
-export default ContenedorTarjeta;
+export default ContenedorTarjetas;

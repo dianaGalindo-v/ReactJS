@@ -1,4 +1,4 @@
-.ContenedorTarjeta{
+.ContenedorTarjetas{
     height: 400px;
 	width: 90vw;
 	max-width: 1400px;
@@ -7,7 +7,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background:rgb(124, 173, 238) ;
+	background:rgb(160, 159, 159) ;
 }
 /* Wrapper interno para controlar padding */
 .tarjetasWrapper{
@@ -34,7 +34,7 @@
 .tarjeta{
 	flex: 0 0 calc(25% - 12px);
 	min-width: 200px;
-	background-color: rgba(202, 12, 240, 0.979);
+	background-color: rgba(195, 195, 195, 0.979);
 	border-radius: 8px;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 	padding: 16px;
