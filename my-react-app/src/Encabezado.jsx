@@ -49,4 +49,4 @@ function Redes(){
         </div>
     );
 }
-export default Encabezado
+export default Encabezado;
