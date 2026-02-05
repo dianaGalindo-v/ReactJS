@@ -28,6 +28,7 @@ h1{
     justify-content: center;
     align-items: center;
     display: flex;
+    border-radius: 30px;
 }
 .MenuDiv ul{
     list-style: none;
@@ -39,6 +40,7 @@ h1{
 .MenuDiv a{
     text-decoration: none;
     color: black;
+    transition: all 0.25s ease;
 }
 .MenuDiv ul li a:hover{
     padding: 10px;
