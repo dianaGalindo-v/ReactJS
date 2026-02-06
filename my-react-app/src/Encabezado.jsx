@@ -4,11 +4,11 @@ import instagram from './assets/instagram.png';
 import gmail from './assets/gmail.png';
 import tiktok from './assets/tik-tok.png';
 import './Encabezado.css';
-function Encabezado(){
-    return (
+function Encabezado({cambiarVista}){ 
+        return (
         <div className="Encabezado">
             <Logo />
-            <Menu />
+            <Menu cambiarVista={cambiarVista} />
             <Redes />
         </div>
     );
@@ -23,15 +23,16 @@ function Logo(){
 }
 
 
-function Menu(){
+function Menu({cambiarVista}){
     return (
         <div className="MenuDiv">
             <ul>
-                <li><a href='#'>Inicio</a></li>
-                <li><a href='#'>Acerca de</a></li>
-                <li><a href='#'>Productos</a></li>
-                <li><a href='#'>Contacto</a></li>
-                <li><a href='#'>Sucursales</a></li>
+                <li onClick={()=> cambiarVista("Inicio")}><a href='#'>Inicio</a></li>
+                <li onClick={()=> cambiarVista("AcercaDe")}><a href='#'>Acerca de</a></li>
+                <li onClick={()=> cambiarVista("Productos")}><a href='#'>Productos</a></li>
+                <li onClick={()=> cambiarVista("Galeria")}><a href='#'>Galeria</a></li>
+                <li onClick={()=> cambiarVista("Contacto")}><a href='#'>Contacto</a></li>
+                <li onClick={()=> cambiarVista("Sucursales")}><a href='#'>Sucursales</a></li>
             </ul>
         </div>    
     );

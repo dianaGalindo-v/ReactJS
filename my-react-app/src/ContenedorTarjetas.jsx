@@ -9,7 +9,8 @@ import jwpei from './assets/jwpei.jpg';
 // fondo
 import fondoBolso from './assets/fondo-bolso.jpg';
 
-function ContenedorTarjetas() {
+function ContenedorTarjetas({vista}) {
+    
     return (
         <div className="ContenedorTarjetas">
 
