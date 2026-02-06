@@ -10,7 +10,6 @@ import jwpei from './assets/jwpei.jpg';
 import fondoBolso from './assets/fondo-bolso.jpg';
 
 function ContenedorTarjetas({vista}) {
-    
     return (
         <div className="ContenedorTarjetas">
 
