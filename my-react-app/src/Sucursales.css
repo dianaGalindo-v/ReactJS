@@ -1,0 +1,12 @@
+@import './AcercaDe.css';
+
+.listaSucursales{
+    list-style: none;
+    padding: 0;
+    margin-top: 25px;
+}
+
+.listaSucursales li{
+    margin: 10px 0;
+    font-size: 18px;
+}
