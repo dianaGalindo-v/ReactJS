@@ -4,11 +4,12 @@ import instagram from './assets/instagram.png';
 import gmail from './assets/gmail.png';
 import tiktok from './assets/tik-tok.png';
 import './Encabezado.css';
-function Encabezado({cambiarVista}){ 
+
+function Encabezado({setVista}){ 
         return (
         <div className="Encabezado">
             <Logo />
-            <Menu cambiarVista={cambiarVista} />
+            <Menu setVista={setVista} />
             <Redes />
         </div>
     );
@@ -23,29 +24,30 @@ function Logo(){
 }
 
 
-function Menu({cambiarVista}){
+function Menu({ setVista }) {
     return (
         <div className="MenuDiv">
             <ul>
-                <li onClick={()=> cambiarVista("Inicio")}><a href='#'>Inicio</a></li>
-                <li onClick={()=> cambiarVista("AcercaDe")}><a href='#'>Acerca de</a></li>
-                <li onClick={()=> cambiarVista("Productos")}><a href='#'>Productos</a></li>
-                <li onClick={()=> cambiarVista("Galeria")}><a href='#'>Galeria</a></li>
-                <li onClick={()=> cambiarVista("Contacto")}><a href='#'>Contacto</a></li>
-                <li onClick={()=> cambiarVista("Sucursales")}><a href='#'>Sucursales</a></li>
+                <li onClick={() => setVista("Inicio")}>Inicio</li>
+                <li onClick={() => setVista("AcercaDe")}>Acerca de</li>
+                <li onClick={() => setVista("Productos")}>Productos</li>
+                <li onClick={() => setVista("Galeria")}>Galería</li>
+                <li onClick={() => setVista("Contactos")}>Contactos</li>
+                <li onClick={() => setVista("Sucursales")}>Sucursales</li>
             </ul>
-        </div>    
+        </div>
     );
 }
+
 
 function Redes(){
     return (
         <div className="RedesDiv">
             <ul>
-                <li className="redes"> <a href='#'> <img src={facebook} alt="Facebook" /></a></li> 
-                <li className="redes"> <a href='#'> <img src={instagram} alt="Instagram" /></a></li>
-                <li className="redes"> <a href='#'> <img src={gmail} alt="Gmail" /></a></li>
-                <li className="redes"> <a href='#'> <img src={tiktok} alt="TikTok" /></a></li>
+                <li><img src={facebook} alt="Facebook" /></li> 
+                <li><img src={instagram} alt="Instagram" /></li>
+                <li><img src={gmail} alt="Gmail" /></li>
+                <li><img src={tiktok} alt="TikTok" /></li>
             </ul>
         </div>
     );

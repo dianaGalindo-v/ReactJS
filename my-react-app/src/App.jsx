@@ -5,10 +5,11 @@ import { useState } from "react";
 
 function App() {
   const [vista, setVista] = useState("Inicio");
+
   return (
     <div>
       {/* MENÚ SUPERIOR */}
-      <Encabezado cambiarVista={setVista} />
+      <Encabezado setVista={setVista} />
       <ContenedorTarjetas vista = {vista}/>               {/* TARJETAS + PROMOCIONES */}
       <Footer />                                          {/* PIE DE PÁGINA */}
     </div>
