@@ -37,4 +37,10 @@
 .formulario button:hover{
     background-color: #555;
 }
+.contactoContainer {
+    text-align: center;
+}
+.tituloContacto {
+    font-size: 40px;   /* aquí aumentas el tamaño */
+}
 

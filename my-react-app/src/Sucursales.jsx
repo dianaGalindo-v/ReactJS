@@ -37,6 +37,13 @@ function Sucursales() {
                     <p>🕒 Sábados: 11:00 am – 6:00 pm</p>
                 </div>
 
+                <div className="sucursalCard">
+                    <h3>Queretaro</h3>
+                    <p>📍 Plaza de Armas</p>
+                    <p>📞 (44) 2139 6468</p>
+                    <p>🕒 Lunes a Viernes: 10:00 am – 8:00 pm</p>
+                    <p>🕒 Sábados: 11:00 am – 6:00 pm</p>
+                </div>
             </div>
 
         </div>
