@@ -7,14 +7,23 @@ function App() {
   const [vista, setVista] = useState("Inicio");
 
   return (
-    <div>
+    <div className="appContainer">
+
       {/* MENÚ SUPERIOR */}
       <Encabezado setVista={setVista} />
-      <ContenedorTarjetas vista = {vista}/>               {/* TARJETAS + PROMOCIONES */}
-      <Footer />                                          {/* PIE DE PÁGINA */}
+
+      {/* CONTENIDO PRINCIPAL */}
+      <div className="contenido">
+        <ContenedorTarjetas vista={vista} />
+      </div>
+
+      {/* PIE DE PÁGINA */}
+      <Footer />
+
     </div>
   );
 }
 
 export default App;
+
 
