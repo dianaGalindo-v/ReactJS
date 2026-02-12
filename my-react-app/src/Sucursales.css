@@ -1,12 +1,50 @@
-@import './AcercaDe.css';
-
-.listaSucursales{
-    list-style: none;
-    padding: 0;
-    margin-top: 25px;
+.sucursalesContainer {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #f5f3f2;
 }
 
-.listaSucursales li{
-    margin: 10px 0;
+.tituloSucursales {
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.introSucursales {
+    max-width: 600px;
+    margin: 0 auto 40px auto;
     font-size: 18px;
+    color: #555;
+}
+
+.sucursalesGrid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.sucursalCard {
+    background-color: white;
+    padding: 25px;
+    width: 300px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sucursalCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.sucursalCard h3 {
+    margin-bottom: 15px;
+    color: #676668; /* tono elegante rosado */
+}
+
+.sucursalCard p {
+    margin: 8px 0;
+    color: #444;
+    font-size: 15px;
 }

@@ -1,16 +1,45 @@
 @import './AcercaDe.css';
 
-.listaProductos{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
+.descripcion{
+    margin-bottom: 30px;
+    color: #666;
+    font-size: 17px;
 }
 
-.producto{
-    background-color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    font-size: 16px;
+/* GRID DE TARJETAS */
+.productosGrid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
 }
+
+/* TARJETA */
+.productoCard{
+    background-color: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.productoCard img{
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+/* TEXTO */
+.productoCard h3{
+    padding: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* HOVER */
+.productoCard:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+

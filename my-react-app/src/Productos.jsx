@@ -1,15 +1,56 @@
 import './Productos.css';
 
+// importar imágenes
+import bandolera from './assets/bandolera.jpg';
+import blackMini from './assets/blackMini.jpeg';
+import blackSL from './assets/blackSL.jpeg';
+import elegante from './assets/elegante.jpeg';
+import longvoyage from './assets/longvoyage.jpg';
+import lookUrbano from './assets/lookUrbano.jpeg';
+import minimal from './assets/minimal.jpeg';
+import whiteElegant from './assets/whiteElegant.jpeg';
+import whiteMini from './assets/whiteMini.jpeg';
+import charles from './assets/charles.jpg';
+import wineJwpei from './assets/wineJwpei.jpeg';
+import wine from './assets/wine.jpg';
+import wineOval from './assets/wineOval.jpeg';
+import wineAsimetric from './assets/wineAsimetric.jpeg';
+import jwpei from './assets/jwpei.jpg';
+
 function Productos() {
+    const productos = [
+        { img: bandolera, nombre: 'Bandolera' },
+        { img: blackMini, nombre: 'Black Mini' },
+        { img: blackSL, nombre: 'Saint Laurent Black' },
+        { img: elegante, nombre: 'Elle' },
+        { img: longvoyage, nombre: 'Longvoyage' },
+        { img: lookUrbano, nombre: 'Black & Wine' },
+        { img: minimal, nombre: 'Mini Min' },
+        { img: whiteElegant, nombre: 'Soft White' },
+        { img: whiteMini, nombre: 'White Square' },
+        { img: charles, nombre: 'Charles & Keith'},
+        { img: wineJwpei, nombre: 'JwPei wine' },
+        { img: wine, nombre: 'Genevive' },
+        { img: wineOval, nombre: 'Wine Oval' },
+        { img: wineAsimetric, nombre: 'Lips Asimetric' },
+        { img: jwpei, nombre: 'Red JwPei' },
+    ];
+
     return (
         <div className="vista">
             <h2>Nuestros Productos</h2>
+            <p className="descripcion">
+                Explora nuestra colección de bolsos diseñados para acompañarte
+                con estilo en cualquier momento.
+            </p>
 
-            <div className="listaProductos">
-                <div className="producto">Bandoleras minimalistas</div>
-                <div className="producto">Bolsos en tonos vino</div>
-                <div className="producto">Diseños urbanos</div>
-                <div className="producto">Ediciones especiales</div>
+            <div className="productosGrid">
+                {productos.map((producto, index) => (
+                    <div className="productoCard" key={index}>
+                        <img src={producto.img} alt={producto.nombre} />
+                        <h3>{producto.nombre}</h3>
+                    </div>
+                ))}
             </div>
         </div>
     );
@@ -17,36 +58,3 @@ function Productos() {
 
 export default Productos;
 
-/*// importar imágenes
-import bandolera from './assets/bandolera.jpg';
-import blackMini from './assets/blackMini.jpeg';
-import blackSL from './assets/productos/bolsa3.jpg';
-import elegante from './assets/productos/bolsa4.jpg';
-import longvoyage from './assets/productos/bolsa5.jpg';
-import minimal from './assets/productos/bolsa6.jpg';
-import whiteMini from './assets/productos/bolsa7.jpg';
-import whiteElegant from './assets/productos/bolsa8.jpg';
-import wine from './assets/productos/bolsa9.jpg';
-import wineAsimetric from './assets/productos/bolsa10.jpg';
-import wineJwpei from './assets/productos/bolsa11.jpg';
-import wineOval from './assets/productos/bolsa12.jpg';
-import loojUrbano from './assets/productos/bolsa13.jpg';
-import jwpei from './assets/productos/bolsa14.jpg';
-
-function Productos() {
-    const productos = [
-        { img: b1, nombre: 'Bolso Minimal' },
-        { img: b2, nombre: 'Bandolera Urbana' },
-        { img: b3, nombre: 'Bolso Vino' },
-        { img: b4, nombre: 'Clásico Negro' },
-        { img: b5, nombre: 'Elegance Bag' },
-        { img: b6, nombre: 'Daily Bag' },
-        { img: b7, nombre: 'Soft Leather' },
-        { img: b8, nombre: 'Mini Bag' },
-        { img: b9, nombre: 'Modern Style' },
-        { img: b10, nombre: 'Urban Chic' },
-        { img: b11, nombre: 'Night Bag' },
-        { img: b12, nombre: 'Simple Touch' },
-        { img: b13, nombre: 'Classic Line' },
-        { img: b14, nombre: 'Maison Special' },
-    ];*/
