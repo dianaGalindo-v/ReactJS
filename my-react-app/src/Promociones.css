@@ -1,0 +1,15 @@
+.promoContent {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #fdf4f8;
+}
+
+.promoContent h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.promoContent p {
+    font-size: 18px;
+    color: #555;
+}

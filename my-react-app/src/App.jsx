@@ -1,5 +1,6 @@
 import Encabezado from "./Encabezado";
 import ContenedorTarjetas from "./ContenedorTarjetas";
+import Promociones from "./Promociones";
 import Footer from "./Footer";
 import { useState } from "react";
 
@@ -15,6 +16,7 @@ function App() {
       {/* CONTENIDO PRINCIPAL */}
       <div className="contenido">
         <ContenedorTarjetas vista={vista} />
+        {vista === "Inicio" && <Promociones />}
       </div>
 
       {/* PIE DE PÁGINA */}

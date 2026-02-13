@@ -52,20 +52,6 @@ function ContenedorTarjetas({ vista }) {
                     <Tarjeta imagen={jwpei} titulo="JW Pei" texto="Estilo urbano" />
                 </div>
             </div>
-
-            {/* PROMOCIONES */}
-            <div className="promoSection">
-                <div
-                    className="promoBackground"
-                    style={{ backgroundImage: `url(${fondoBolso})` }}
-                ></div>
-
-                <div className="promoContent">
-                    <h2>Promociones especiales</h2>
-                    <p>Descuentos exclusivos por tiempo limitado.</p>
-                </div>
-            </div>
-
         </div>
     );
 }
