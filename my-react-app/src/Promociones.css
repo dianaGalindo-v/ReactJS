@@ -1,7 +1,11 @@
 .promoContent {
     text-align: center;
-    padding: 50px 20px;
+    padding: 40px 0px;
     background-color: #fdf4f8;
+    width: 100%;
+}
+.promoContent > div {
+    width: 100%;
 }
 
 .promoContent h2 {

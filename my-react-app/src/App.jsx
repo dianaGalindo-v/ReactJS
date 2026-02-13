@@ -16,8 +16,8 @@ function App() {
       {/* CONTENIDO PRINCIPAL */}
       <div className="contenido">
         <ContenedorTarjetas vista={vista} />
-        {vista === "Inicio" && <Promociones />}
       </div>
+        {vista === "Inicio" && <Promociones />}
 
       {/* PIE DE PÁGINA */}
       <Footer />

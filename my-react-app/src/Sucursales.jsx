@@ -1,6 +1,39 @@
 import './Sucursales.css';
+import Mapa from './Mapa';
 
 function Sucursales() {
+
+    const sucursales = [
+        {
+            nombre: "Ciudad de México",
+            direccion: "Av. Reforma 123, Centro",
+            telefono: "(55) 1234 5678",
+            lat: 19.4326,
+            lng: -99.1332
+        },
+        {
+            nombre: "Guadalajara",
+            direccion: "Av. Vallarta 456, Zona Norte",
+            telefono: "(33) 9876 5432",
+            lat: 20.6597,
+            lng: -103.3496
+        },
+        {
+            nombre: "Monterrey",
+            direccion: "Paseo Santa Lucía 789",
+            telefono: "(81) 4567 8901",
+            lat: 25.6866,
+            lng: -100.3161
+        },
+        {
+            nombre: "Querétaro",
+            direccion: "Plaza de Armas",
+            telefono: "(44) 2139 6468",
+            lat: 20.5888,
+            lng: -100.3899
+        }
+    ];
+
     return (
         <div className="sucursalesContainer">
 
@@ -13,37 +46,24 @@ function Sucursales() {
 
             <div className="sucursalesGrid">
 
-                <div className="sucursalCard">
-                    <h3>Ciudad de México</h3>
-                    <p>📍 Av. Reforma 123, Centro</p>
-                    <p>📞 (55) 1234 5678</p>
-                    <p>🕒 Lunes a Viernes: 10:00 am – 8:00 pm</p>
-                    <p>🕒 Sábados: 11:00 am – 6:00 pm</p>
-                </div>
+                {sucursales.map((sucursal, index) => (
+                    <div className="sucursalCard" key={index}>
 
-                <div className="sucursalCard">
-                    <h3>Guadalajara</h3>
-                    <p>📍 Av. Vallarta 456, Zona Norte</p>
-                    <p>📞 (33) 9876 5432</p>
-                    <p>🕒 Lunes a Viernes: 10:00 am – 8:00 pm</p>
-                    <p>🕒 Sábados: 11:00 am – 6:00 pm</p>
-                </div>
+                        <h3>{sucursal.nombre}</h3>
+                        <p>📍 {sucursal.direccion}</p>
+                        <p>📞 {sucursal.telefono}</p>
+                        <p>🕒 Lunes a Viernes: 10:00 am – 8:00 pm</p>
+                        <p>🕒 Sábados: 11:00 am – 6:00 pm</p>
 
-                <div className="sucursalCard">
-                    <h3>Monterrey</h3>
-                    <p>📍 Paseo Santa Lucía 789</p>
-                    <p>📞 (81) 4567 8901</p>
-                    <p>🕒 Lunes a Viernes: 10:00 am – 8:00 pm</p>
-                    <p>🕒 Sábados: 11:00 am – 6:00 pm</p>
-                </div>
+                        <Mapa
+                            lat={sucursal.lat}
+                            lng={sucursal.lng}
+                            nombre_sucursal={sucursal.nombre}
+                        />
 
-                <div className="sucursalCard">
-                    <h3>Queretaro</h3>
-                    <p>📍 Plaza de Armas</p>
-                    <p>📞 (44) 2139 6468</p>
-                    <p>🕒 Lunes a Viernes: 10:00 am – 8:00 pm</p>
-                    <p>🕒 Sábados: 11:00 am – 6:00 pm</p>
-                </div>
+                    </div>
+                ))}
+
             </div>
 
         </div>
@@ -51,5 +71,6 @@ function Sucursales() {
 }
 
 export default Sucursales;
+
 
 
