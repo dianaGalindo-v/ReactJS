@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+
 import './AcercaDe.css';
 
 function AcercaDe() {
