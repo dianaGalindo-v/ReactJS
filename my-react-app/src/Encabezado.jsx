@@ -34,6 +34,8 @@ function Menu({ setVista }) {
                 <li onClick={() => setVista("Galeria")}>Galería</li>
                 <li onClick={() => setVista("Contactos")}>Contactos</li>
                 <li onClick={() => setVista("Sucursales")}>Sucursales</li>
+                <li onClick={() => setVista("Usuarios")}>Usuarios</li>
+                <li onClick={() => setVista("Carrito")}>Carrito</li>
             </ul>
         </div>
     );

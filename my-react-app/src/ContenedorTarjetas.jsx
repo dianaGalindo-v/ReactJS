@@ -13,6 +13,8 @@ import Productos from './Productos';
 import Contactos from './Contactos';
 import Sucursales from './Sucursales';
 import AcercaDe from './AcercaDe';
+import Usuario from './UsuariosTabla';
+import Carrito from './Carrito';
 
 function ContenedorTarjetas({ vista }) {
 
@@ -21,7 +23,9 @@ function ContenedorTarjetas({ vista }) {
         "Productos": <Productos />,
         "Contactos": <Contactos />,
         "Sucursales": <Sucursales />,
-        "AcercaDe": <AcercaDe />
+        "AcercaDe": <AcercaDe />,
+        "Usuarios": <Usuario />,
+        "Carrito": <Carrito />
     };
 
     // 👉 SI NO ES INICIO, MOSTRAMOS OTRA VISTA
@@ -67,7 +71,3 @@ function Tarjeta({ imagen, titulo, texto }) {
 }
 
 export default ContenedorTarjetas;
-
-
-
-
