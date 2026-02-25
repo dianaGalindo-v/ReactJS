@@ -4,7 +4,7 @@ import instagram from './assets/instagram.png';
 import gmail from './assets/gmail.png';
 import tiktok from './assets/tik-tok.png';
 import './Encabezado.css';
-
+import Clima from './Clima';
 function Encabezado({setVista}){ 
         return (
         <div className="Encabezado">
@@ -49,6 +49,7 @@ function Redes(){
                 <li><img src={gmail} alt="Gmail" /></li>
                 <li><img src={tiktok} alt="TikTok" /></li>
             </ul>
+            <Clima />
         </div>
     );
 }
