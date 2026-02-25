@@ -1,98 +1,72 @@
-h2{
-    color: rgb(54, 54, 54);
+h1, h2 {
+    color: #222; /* Gris oscuro para títulos */
+    font-family: 'Poppins', sans-serif;
 }
-h1{
-    color: rgb(54, 54, 54);
-}
-.Encabezado{
-    background-color: rgb(198, 197, 196);
+
+.Encabezado {
+    background-color: #c0bebe; /* Gris muy claro de fondo */
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    padding: 10px 5%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Sombra sutil */
 }
-.LogoDiv{
-    width: 20%;
-    background-color: rgb(198, 197, 196);
-    justify-content: center;
-    align-items: flex-start;
+
+.LogoDiv {
     display: flex;
+    align-items: center;
 }
-.LogoDiv img{
+
+.LogoDiv img {
     width: 100px;
     display: block;
 }
-.MenuDiv{
-    width: 60%;
-    background-color: rgb(164, 163, 162);
-    justify-content: center;
+
+.MenuDiv {
+    display: flex;
     align-items: center;
-    display: flex;
-    border-radius: 30px;
-    cursor: pointer;
-}
-.MenuDiv ul{
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    font-size: 20px;
-    font-weight: bold;
-}
-.MenuDiv a{
-    text-decoration: none;
-    color: black;
-    transition: all 0.25s ease;
-    cursor: pointer;
-}
-.MenuDiv ul li{
-    cursor: pointer;
-    padding: 8px 14px;
-    border-radius: 20px;
-    transition: background-color 0.3s ease;
+    justify-content: center;
 }
 
-.MenuDiv ul li a:hover{
-    padding: 10px;
-    background-color: #d6d6d6;
-    border-radius: 15px;
-}
-.RedesDiv{
-    width: 20%;
-    background-color: transparent;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    
-}
-.RedesDiv ul{
-    list-style: none;
-    display: flex;
-    gap: 10px;
-    padding: 50px;
-    margin: 20px;
-}
-.RedesDiv img{
-    width: 50px;
-    height: auto;
-    display: block;
-}
 .MenuDiv ul {
-    display: flex;
-    gap: 20px;
     list-style: none;
+    display: flex;
+    gap: 25px;
+    font-size: 18px;
+    font-weight: 600;
     padding: 0;
     margin: 0;
-    flex-wrap: wrap; /* para pantallas chicas se ajusta */
+}
+
+.MenuDiv a {
+    text-decoration: none;
+    color: #222;
+    transition: all 0.2s ease;
 }
 
 .MenuDiv li {
-    cursor: pointer;
-    font-weight: 600;
     padding: 8px 12px;
-    border-radius: 8px;
-    transition: 0.2s ease;
+    border-radius: 10px;
+    transition: background-color 0.25s ease;
 }
 
 .MenuDiv li:hover {
-    background-color: rgba(52, 53, 53, 0.1);
+    background-color: rgba(0,0,0,0.05); /* hover suave */
+}
+
+.RedesDiv {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.RedesDiv img {
+    width: 35px;
+    height: auto;
+    transition: transform 0.2s ease;
+}
+
+.RedesDiv img:hover {
+    transform: scale(1.1); /* efecto sutil al pasar el mouse */
 }
