@@ -30,12 +30,13 @@ function Menu({ setVista }) {
             <ul>
                 <li onClick={() => setVista("Inicio")}>Inicio</li>
                 <li onClick={() => setVista("AcercaDe")}>Acerca de</li>
-                <li onClick={() => setVista("Productos")}>Productos</li>
                 <li onClick={() => setVista("Galeria")}>Galería</li>
-                <li onClick={() => setVista("Contactos")}>Contactos</li>
                 <li onClick={() => setVista("Sucursales")}>Sucursales</li>
-                <li onClick={() => setVista("Usuarios")}>Usuarios</li>
+                <li onClick={() => setVista("Productos")}>Productos</li>
                 <li onClick={() => setVista("Carrito")}>Carrito</li>
+                <li onClick={() => setVista("Usuarios")}>Usuarios</li>
+                <li onClick={() => setVista("Contactos")}>Contactos</li>
+
             </ul>
         </div>
     );
