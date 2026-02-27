@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from './Services/Api';
-
+import RegistrarProductos from './RegistrarProductos';
+import './Productos.css';
 function Productos() {
     const [productos, setProductos] = useState([]);
     const [cargando, setCargando] = useState(true);
@@ -27,6 +28,7 @@ function Productos() {
 
     return (
         <div className="vista">
+            <RegistrarProductos />
             <h2>Nuestros Productos</h2>
             <p className="descripcion">
                 Explora nuestra colección de productos disponibles.
@@ -39,6 +41,7 @@ function Productos() {
                         <h3>{producto.title}</h3>
                         <p>${producto.price}</p>
                     </div>
+                    
                 ))}
             </div>
         </div>
