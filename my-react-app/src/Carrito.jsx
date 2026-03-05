@@ -15,9 +15,10 @@ function Carrito() {
       try {
 
         const response = await api.get('/carts');
-        setCarritos([response.data[response.data.lenght - 1]]);
 
-        // Obtener todos los IDs de productos sin repetir
+        // 🔧 CORRECCIÓN AQUÍ
+        setCarritos([response.data[response.data.length - 1]]);
+
         const ids = Array.from(
           new Set(
             response.data.flatMap(c => c.products.map(p => p.productId))
@@ -26,7 +27,6 @@ function Carrito() {
 
         const prods = {};
 
-        // Obtener información de cada producto
         for (let id of ids) {
 
           const res = await api.get(`/products/${id}`);
@@ -98,9 +98,7 @@ function Carrito() {
 
                       <span>{producto.title}</span>
 
-                      <span>
-                        ${producto.price}
-                      </span>
+                      <span>${producto.price}</span>
 
                       <span>
                         Cantidad: {prod.quantity}
