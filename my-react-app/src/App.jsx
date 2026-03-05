@@ -16,8 +16,11 @@ function App() {
       {/* CONTENIDO PRINCIPAL */}
       <div className="contenido">
         <ContenedorTarjetas vista={vista} />
+        {vista === "Login" && <LoginForm />}
       </div>
         {vista === "Inicio" && <Promociones />}
+
+        
 
       {/* PIE DE PÁGINA */}
       <Footer />

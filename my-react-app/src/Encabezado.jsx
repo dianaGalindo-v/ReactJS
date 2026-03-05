@@ -1,3 +1,4 @@
+import { useState } from "react";
 import logoBag from './assets/logoBag.png';
 import facebook from './assets/facebook.png';
 import instagram from './assets/instagram.png';
@@ -5,17 +6,22 @@ import gmail from './assets/gmail.png';
 import tiktok from './assets/tik-tok.png';
 import './Encabezado.css';
 import Clima from './Clima';
-function Encabezado({setVista}){ 
-        return (
+import LoginForm from './LoginForm'; // asegúrate que la ruta sea correcta
+
+function Encabezado({ setVista }) {
+    const [mostrarLogin, setMostrarLogin] = useState(false);
+
+    return (
         <div className="Encabezado">
             <Logo />
-            <Menu setVista={setVista} />
+            <Menu setVista={setVista} setMostrarLogin={setMostrarLogin} />
             <Redes />
+            {mostrarLogin && <LoginForm cerrar={() => setMostrarLogin(false)} />}
         </div>
     );
 }
 
-function Logo(){
+function Logo() {
     return (
         <div className="LogoDiv">
             <img src={logoBag} alt="React Logo" />
@@ -23,8 +29,7 @@ function Logo(){
     );
 }
 
-
-function Menu({ setVista }) {
+function Menu({ setVista, setMostrarLogin }) {
     return (
         <div className="MenuDiv">
             <ul>
@@ -36,14 +41,13 @@ function Menu({ setVista }) {
                 <li onClick={() => setVista("Carrito")}>Carrito</li>
                 <li onClick={() => setVista("Usuarios")}>Usuarios</li>
                 <li onClick={() => setVista("Contactos")}>Contactos</li>
-
+                <li onClick={() => setVista("Login")}>Login</li>
             </ul>
         </div>
     );
 }
 
-
-function Redes(){
+function Redes() {
     return (
         <div className="RedesDiv">
             <ul>
@@ -56,4 +60,5 @@ function Redes(){
         </div>
     );
 }
+
 export default Encabezado;

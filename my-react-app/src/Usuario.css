@@ -84,13 +84,13 @@
 }
 
 .editar{
-  background: linear-gradient(180deg, #ffd86b, #f0c419);
+  background: linear-gradient(180deg, #41965a, #41965a);
   color:#1b1b1b;
   box-shadow: 0 4px 12px rgba(240,196,25,0.14), 0 0 12px rgba(46,224,75,0.06) inset;
 }
 
 .eliminar{
-  background: linear-gradient(180deg, #ff6b6b, #ff4b4b);
+  background: linear-gradient(180deg, #1b5516, #0a4719);
   color:#fff;
   box-shadow: 0 6px 18px rgba(255,75,75,0.12);
 }
