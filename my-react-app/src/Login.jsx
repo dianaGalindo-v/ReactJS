@@ -4,12 +4,13 @@ import api from "./Services/Api";
 import { useAuth } from "./AuthContext";
 
 function Login() {
-
+  const { login } = useAuth();
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { login } = useAuth();
+  
 
   const handleLogin = async (e) => {
 
