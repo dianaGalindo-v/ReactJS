@@ -38,7 +38,7 @@ function Menu({ setVista }) {
                 <li onClick={() => setVista("Galeria")}>Galería</li>
                 <li onClick={() => setVista("Sucursales")}>Sucursales</li>
                 <li onClick={() => setVista("Productos")}>Productos</li>
-
+                <li onClick={() => setVista("Contactos")}>Contacto</li>
                 {isLoggedIn ? (
                     <>
                         <li onClick={() => setVista("Carrito")}>Carrito</li>
@@ -49,7 +49,7 @@ function Menu({ setVista }) {
                     <li onClick={() => setVista("Login")}>Login</li>
                 )}
 
-                <li onClick={() => setVista("Contactos")}>Contactos</li>
+                
 
             </ul>
         </div>
