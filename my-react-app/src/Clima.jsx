@@ -1,38 +1,46 @@
-// 20.27815436789821, -97.95916073755724
 import { useEffect, useState } from "react";
+import "./Clima.css";
 
+function Clima() {
+  const [clima, setClima] = useState(null);
 
-function Clima(){
-    const [clima, setClima] = useState(null);
-        const API_KEY= import.meta.env.VITE_OPENWEATHER_API_KEY;
-        console.log(API_KEY)
-        const lat = 20.27815436789821
-        const lng = -97.95916073755724
+  const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
-        useEffect(()=>{
-            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric&lang=es`)
-            .then((res)=> res.json())
-            .then((data)=>{
-                console.log(data);
-                setClima(data);
-            })
-            .catch((error)=> console.error("Error:",error));
-        },[])
+  const lat = 20.27815436789821;
+  const lng = -97.95916073755724;
 
-    return(
-        <div className="divClima">
-            {
-                clima ? (
-                    <>
-                    <p>{clima.name} Temp: {clima.main.temp} °C | Hum: {clima.main.humidity}</p>
-                    <p>Descripcion: {clima.weather.description}</p>
-                    </>
-                ):(
-                    <p>Cargando clima ...</p>
-                )
-            }
-        </div>
+  useEffect(() => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric&lang=es`
     )
+      .then((res) => res.json())
+      .then((data) => {
+        setClima(data);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []);
+
+  return (
+    <div className="divClima">
+      {clima ? (
+        <>
+          <div className="tempPrincipal">
+            {Math.round(clima.main.temp)}°C
+          </div>
+
+          <div className="ciudad">
+            {clima.name}
+          </div>
+
+          <div className="detalles">
+            💧 {clima.main.humidity}% | {clima.weather[0].description}
+          </div>
+        </>
+      ) : (
+        <div className="cargando">⛅ Cargando...</div>
+      )}
+    </div>
+  );
 }
 
-export default Clima
+export default Clima;

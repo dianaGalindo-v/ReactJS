@@ -1,57 +1,43 @@
 .divClima {
   position: relative;
-  display: inline-block;
-  padding: 40px 60px;
-  background: #ffffff;
-  border-radius: 100px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  animation: flotar 4s ease-in-out infinite;
-}
-
-/* Burbujas laterales para forma de nube */
-.divClima::before,
-.divClima::after {
-  content: "";
-  position: absolute;
-  background: #ffffff;
-  border-radius: 50%;
-  z-index: -1;
-}
-
-.divClima::before {
-  width: 100px;
-  height: 100px;
-  top: -40px;
-  left: 20px;
-}
-
-.divClima::after {
-  width: 120px;
-  height: 120px;
-  top: -50px;
-  right: 20px;
-}
-
-/* Animación flotante */
-@keyframes flotar {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
-/* Fondo cielo opcional */
-body {
-  background: linear-gradient(to top, #87ceeb, #e0f7ff);
-  height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background: #918c8c;
+  padding: 10px 14px;
+  border-radius: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  font-family: 'Poppins', sans-serif;
+  animation: flotar 4s ease-in-out infinite;
+
+  max-width: 150px;
+}
+
+.tempPrincipal {
+  font-size: 20px;
+  font-weight: bold;
+  color: #16662f;
+}
+
+.ciudad {
+  font-size: 12px;
+  color: #000000;
+}
+
+.detalles {
+  font-size: 11px;
+  color: #000000;
+  text-align: center;
+}
+
+.cargando {
+  font-size: 12px;
+}
+
+/* animación flotante */
+@keyframes flotar {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
 }
