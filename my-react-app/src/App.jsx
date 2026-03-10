@@ -2,6 +2,7 @@ import Encabezado from "./Encabezado";
 import ContenedorTarjetas from "./ContenedorTarjetas";
 import Promociones from "./Promociones";
 import Footer from "./Footer";
+import Login from "./Login";
 import { useState } from "react";
 
 function App() {
@@ -16,11 +17,12 @@ function App() {
       {/* CONTENIDO PRINCIPAL */}
       <div className="contenido">
         <ContenedorTarjetas vista={vista} />
-        {vista === "Login" && <LoginForm />}
-      </div>
-        {vista === "Inicio" && <Promociones />}
 
-        
+        {vista === "Login" && <Login />}
+
+      </div>
+
+      {vista === "Inicio" && <Promociones />}
 
       {/* PIE DE PÁGINA */}
       <Footer />
@@ -30,5 +32,3 @@ function App() {
 }
 
 export default App;
-
-
