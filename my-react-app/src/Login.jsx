@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Login.css";
 import api from "./Services/Api";
+import { useAuth } from "./AuthContext";
 
 function Login() {
 
@@ -8,7 +9,10 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const { login } = useAuth();
+
   const handleLogin = async (e) => {
+
     e.preventDefault();
 
     try {
@@ -22,7 +26,8 @@ function Login() {
 
       const token = response.data.token;
 
-      localStorage.setItem("authToken", token);
+      // usamos el contexto
+      login(token);
 
       console.log("Token:", token);
 

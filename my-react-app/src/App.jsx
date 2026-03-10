@@ -4,30 +4,37 @@ import Promociones from "./Promociones";
 import Footer from "./Footer";
 import Login from "./Login";
 import { useState } from "react";
+import { AuthProvider } from "./AuthContext";
 
 function App() {
+
   const [vista, setVista] = useState("Inicio");
 
   return (
-    <div className="appContainer">
+    <AuthProvider>
 
-      {/* MENÚ SUPERIOR */}
-      <Encabezado setVista={setVista} />
+      <div className="appContainer">
 
-      {/* CONTENIDO PRINCIPAL */}
-      <div className="contenido">
-        <ContenedorTarjetas vista={vista} />
+        {/* MENÚ SUPERIOR */}
+        <Encabezado setVista={setVista} />
 
-        {vista === "Login" && <Login />}
+        {/* CONTENIDO PRINCIPAL */}
+        <div className="contenido">
+
+          <ContenedorTarjetas vista={vista} />
+
+          {vista === "Login" && <Login />}
+
+        </div>
+
+        {vista === "Inicio" && <Promociones />}
+
+        {/* PIE DE PÁGINA */}
+        <Footer />
 
       </div>
 
-      {vista === "Inicio" && <Promociones />}
-
-      {/* PIE DE PÁGINA */}
-      <Footer />
-
-    </div>
+    </AuthProvider>
   );
 }
 

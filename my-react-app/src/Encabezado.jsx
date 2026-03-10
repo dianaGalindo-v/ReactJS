@@ -5,6 +5,7 @@ import gmail from './assets/gmail.png';
 import tiktok from './assets/tik-tok.png';
 import './Encabezado.css';
 import Clima from './Clima';
+import { useAuth } from './AuthContext';
 
 function Encabezado({ setVista }) {
     return (
@@ -25,18 +26,31 @@ function Logo() {
 }
 
 function Menu({ setVista }) {
+
+    const { isLoggedIn, logout } = useAuth();
+
     return (
         <div className="MenuDiv">
             <ul>
+
                 <li onClick={() => setVista("Inicio")}>Inicio</li>
                 <li onClick={() => setVista("AcercaDe")}>Acerca de</li>
                 <li onClick={() => setVista("Galeria")}>Galería</li>
                 <li onClick={() => setVista("Sucursales")}>Sucursales</li>
                 <li onClick={() => setVista("Productos")}>Productos</li>
-                <li onClick={() => setVista("Carrito")}>Carrito</li>
-                <li onClick={() => setVista("Usuarios")}>Usuarios</li>
+
+                {isLoggedIn ? (
+                    <>
+                        <li onClick={() => setVista("Carrito")}>Carrito</li>
+                        <li onClick={() => setVista("Usuarios")}>Usuarios</li>
+                        <li onClick={logout}>Cerrar sesión</li>
+                    </>
+                ) : (
+                    <li onClick={() => setVista("Login")}>Login</li>
+                )}
+
                 <li onClick={() => setVista("Contactos")}>Contactos</li>
-                <li onClick={() => setVista("Login")}>Login</li>
+
             </ul>
         </div>
     );
