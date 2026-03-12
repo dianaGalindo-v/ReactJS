@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react';
 import api from './Services/Api';
 import RegistrarProductos from './RegistrarProductos';
 import './Productos.css';
+import { useAuth } from './AuthContext';
 
 function Productos() {
+
+    const { isLoggedIn } = useAuth();
+
     const [productos, setProductos] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
@@ -34,8 +38,9 @@ function Productos() {
         try {
             await api.delete(`/products/${id}`);
             alert("Producto eliminado");
-            // Actualizar lista quitando el producto eliminado
+
             setProductos((prev) => prev.filter((p) => p.id !== id));
+
         } catch (error) {
             console.error("Error al eliminar:", error);
             alert("No se pudo eliminar el producto");
@@ -50,8 +55,11 @@ function Productos() {
                 date: new Date(),
                 products: [{ productId: producto.id, quantity: 1 }]
             };
+
             await api.post('/carts', carrito);
+
             alert("Producto agregado al carrito 🛒");
+
         } catch (error) {
             console.error("Error al agregar al carrito:", error);
             alert("No se pudo agregar al carrito");
@@ -63,37 +71,51 @@ function Productos() {
 
     return (
         <div className="vista">
-            {/* FORMULARIO DE REGISTRO / EDICIÓN */}
-            <RegistrarProductos
-                productoEditado={productoSeleccionado}
-                limpiarSeleccion={() => setProductoSeleccionado(null)}
-                onActualizacionExitosa={(productoActualizado) => {
-                    if (productoActualizado) {
-                        // Actualizar solo el producto editado en la lista
-                        setProductos((prev) =>
-                            prev.map((p) =>
-                                p.id === productoActualizado.id ? productoActualizado : p
-                            )
-                        );
-                    } else {
-                        // Si se agregó un nuevo producto, recargamos la lista
-                        obtenerProductos();
-                    }
-                }}
-            />
+
+            {/* FORMULARIO SOLO SI ESTÁ LOGUEADO */}
+            {isLoggedIn && (
+                <RegistrarProductos
+                    productoEditado={productoSeleccionado}
+                    limpiarSeleccion={() => setProductoSeleccionado(null)}
+                    onActualizacionExitosa={(productoActualizado) => {
+
+                        if (productoActualizado) {
+
+                            setProductos((prev) =>
+                                prev.map((p) =>
+                                    p.id === productoActualizado.id ? productoActualizado : p
+                                )
+                            );
+
+                        } else {
+
+                            obtenerProductos();
+
+                        }
+                    }}
+                />
+            )}
 
             <h2>Nuestros Productos</h2>
+
             <p className="descripcion">
                 Explora nuestra colección de productos disponibles.
             </p>
 
             <div className="productosGrid">
+
                 {productos.map((producto) => (
+
                     <div className="productoCard" key={producto.id}>
+
                         <img src={producto.image} alt={producto.title} />
+
                         <h3>{producto.title}</h3>
+
                         <p>${producto.price}</p>
+
                         <div className="productoBotones">
+
                             <button
                                 className="btnCarrito"
                                 onClick={() => agregarAlCarrito(producto)}
@@ -101,23 +123,33 @@ function Productos() {
                                 Añadir al carrito
                             </button>
 
-                            <button
-                                className="btnEditar"
-                                onClick={() => setProductoSeleccionado(producto)}
-                            >
-                                Editar
-                            </button>
+                            {/* BOTONES SOLO SI ESTÁ LOGUEADO */}
+                            {isLoggedIn && (
+                                <>
+                                    <button
+                                        className="btnEditar"
+                                        onClick={() => setProductoSeleccionado(producto)}
+                                    >
+                                        Editar
+                                    </button>
 
-                            <button
-                                className="btnEliminar"
-                                onClick={() => eliminarProducto(producto.id)}
-                            >
-                                Eliminar
-                            </button>
+                                    <button
+                                        className="btnEliminar"
+                                        onClick={() => eliminarProducto(producto.id)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </>
+                            )}
+
                         </div>
+
                     </div>
+
                 ))}
+
             </div>
+
         </div>
     );
 }

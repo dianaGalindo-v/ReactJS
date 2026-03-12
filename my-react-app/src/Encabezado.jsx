@@ -41,6 +41,7 @@ function Menu({ setVista }) {
                 <li onClick={() => setVista("Contactos")}>Contacto</li>
                 {isLoggedIn ? (
                     <>
+                        <li onClick={() => setVista("Categoria")}>Categoria</li>
                         <li onClick={() => setVista("Carrito")}>Carrito</li>
                         <li onClick={() => setVista("Usuarios")}>Usuarios</li>
                         <li onClick={logout}>Cerrar sesión</li>

@@ -4,6 +4,7 @@ import Promociones from "./Promociones";
 import Footer from "./Footer";
 import Login from "./Login";
 import Registro from "./Registro";
+import Categorias from "./Categorias";
 import { useState } from "react";
 import { AuthProvider } from "./AuthContext";
 
@@ -29,7 +30,9 @@ function App() {
           {vista === "Registro" && (
             <Registro volverLogin={() => setVista("Login")} />
           )}
-
+          
+          {vista === "Categoria" && <Categorias />
+          }
         </div>
 
         {vista === "Inicio" && <Promociones />}
