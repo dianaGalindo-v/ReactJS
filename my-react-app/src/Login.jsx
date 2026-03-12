@@ -3,14 +3,13 @@ import "./Login.css";
 import api from "./Services/Api";
 import { useAuth } from "./AuthContext";
 
-function Login() {
+function Login({ setVista }) {
+
   const { login } = useAuth();
-  
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  
 
   const handleLogin = async (e) => {
 
@@ -41,33 +40,6 @@ function Login() {
       setError("Usuario o contraseña incorrecta");
 
     }
-  };
-
-  const registrarUsuario = () => {
-
-    if (!username || !password) {
-      alert("Ingresa usuario y contraseña para registrar");
-      return;
-    }
-
-    const nuevoUsuario = {
-      username,
-      password
-    };
-
-    const usuariosGuardados =
-      JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    usuariosGuardados.push(nuevoUsuario);
-
-    localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));
-
-    console.log("Usuarios registrados:", usuariosGuardados);
-
-    alert("Usuario registrado correctamente");
-
-    setUsername("");
-    setPassword("");
   };
 
   return (
@@ -109,7 +81,7 @@ function Login() {
           <button
             type="button"
             className="login__btn login__btn--secundario"
-            onClick={registrarUsuario}
+            onClick={() => setVista("Registro")}
           >
             Crear cuenta
           </button>

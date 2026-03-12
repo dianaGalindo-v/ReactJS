@@ -3,6 +3,7 @@ import ContenedorTarjetas from "./ContenedorTarjetas";
 import Promociones from "./Promociones";
 import Footer from "./Footer";
 import Login from "./Login";
+import Registro from "./Registro";
 import { useState } from "react";
 import { AuthProvider } from "./AuthContext";
 
@@ -23,7 +24,11 @@ function App() {
 
           <ContenedorTarjetas vista={vista} />
 
-          {vista === "Login" && <Login />}
+          {vista === "Login" && <Login setVista={setVista} />}
+
+          {vista === "Registro" && (
+            <Registro volverLogin={() => setVista("Login")} />
+          )}
 
         </div>
 
