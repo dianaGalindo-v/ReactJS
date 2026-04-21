@@ -8,8 +8,16 @@ const containerStyle = {
 
 function MapaGeolocalizacion() {
   const [ubicacion, setUbicacion] = useState(null);
+  const [error, setError] = useState(null);
+
+  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
   useEffect(() => {
+    if (!apiKey) {
+      setError("API Key no configurada");
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setUbicacion({
@@ -17,13 +25,22 @@ function MapaGeolocalizacion() {
           lng: position.coords.longitude
         });
       },
-      (error) => console.error(error),
+      (error) => {
+        console.error(error);
+        setError("No se pudo obtener la ubicación");
+      },
       { enableHighAccuracy: true }
     );
-  }, []);
+  }, [apiKey]);
+
+  if (error) {
+    return <div style={{padding: '20px', background: '#f0f0f0', borderRadius: '8px', textAlign: 'center'}}>
+      ⚠️ {error}
+    </div>;
+  }
 
   return (
-    <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+    <LoadScript googleMapsApiKey={apiKey || "dummy"}>
       {ubicacion && (
         <GoogleMap
           mapContainerStyle={containerStyle}

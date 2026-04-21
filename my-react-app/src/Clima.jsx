@@ -3,6 +3,7 @@ import "./Clima.css";
 
 function Clima() {
   const [clima, setClima] = useState(null);
+  const [error, setError] = useState(false);
 
   const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
@@ -10,6 +11,11 @@ function Clima() {
   const lng = -97.95916073755724;
 
   useEffect(() => {
+    if (!API_KEY) {
+      setError(true);
+      return;
+    }
+
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric&lang=es`
     )
@@ -17,12 +23,17 @@ function Clima() {
       .then((data) => {
         setClima(data);
       })
-      .catch((error) => console.error("Error:", error));
-  }, []);
+      .catch((error) => {
+        console.error("Error:", error);
+        setError(true);
+      });
+  }, [API_KEY]);
 
   return (
     <div className="divClima">
-      {clima ? (
+      {error ? (
+        <div className="cargando">⛅ Sin clima</div>
+      ) : clima ? (
         <>
           <div className="tempPrincipal">
             {Math.round(clima.main.temp)}°C

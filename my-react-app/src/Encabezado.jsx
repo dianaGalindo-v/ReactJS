@@ -4,7 +4,6 @@ import instagram from './assets/instagram.png';
 import gmail from './assets/gmail.png';
 import tiktok from './assets/tik-tok.png';
 import './Encabezado.css';
-import Clima from './Clima';
 import { useAuth } from './AuthContext';
 
 function Encabezado({ setVista }) {
@@ -41,7 +40,7 @@ function Menu({ setVista }) {
                 <li onClick={() => setVista("Contactos")}>Contacto</li>
                 {isLoggedIn ? (
                     <>
-                        <li onClick={() => setVista("Categoria")}>Categoria</li>
+                        <li onClick={() => setVista("Categoria")}>Categorías</li>
                         <li onClick={() => setVista("Carrito")}>Carrito</li>
                         <li onClick={() => setVista("Usuarios")}>Usuarios</li>
                         <li onClick={logout}>Cerrar sesión</li>
@@ -49,8 +48,6 @@ function Menu({ setVista }) {
                 ) : (
                     <li onClick={() => setVista("Login")}>Login</li>
                 )}
-
-                
 
             </ul>
         </div>
@@ -66,7 +63,6 @@ function Redes() {
                 <li><img src={gmail} alt="Gmail" /></li>
                 <li><img src={tiktok} alt="TikTok" /></li>
             </ul>
-            <Clima />
         </div>
     );
 }

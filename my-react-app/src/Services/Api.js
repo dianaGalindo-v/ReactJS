@@ -1,34 +1,72 @@
 import axios from 'axios';
 
-// Usar sólo el origin (dominio) de la variable de entorno.
-// Así, si el usuario pone una ruta como https://fakestoreapi.com/carts
-// el origin será https://fakestoreapi.com y api.get('/users') seguirá
-// apuntando a https://fakestoreapi.com/users.
-const rawBase = import.meta.env.VITE_FAKESTORE_API_KEY || '';
-let base = '';
-try {
-    if (rawBase) {
-        const parsed = new URL(rawBase);
-        base = parsed.origin;
-    }
-} catch (e) {
-    // Si rawBase no es una URL válida, intentar limpiarlo quitando cualquier path.
-    if (rawBase.includes('://')) {
-        // formato extraño, quitar todo después del dominio
-        const parts = rawBase.split('/');
-        base = parts[0] + '//' + parts[2];
-    } else {
-        base = rawBase;
-    }
-}
-
-if (!base) base = 'https://fakestoreapi.com';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 const api = axios.create({
-    baseURL: base,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
+
+// Interceptor para agregar token JWT a las peticiones
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// ==================== USUARIOS ====================
+export const usuariosAPI = {
+  crear: (datos) => api.post('/usuarios', datos),
+  listar: () => api.get('/usuarios'),
+  buscar: (id) => api.get(`/usuarios/${id}`),
+  actualizar: (id, datos) => api.put(`/usuarios/${id}`, datos),
+  eliminar: (id) => api.delete(`/usuarios/${id}`),
+  login: (email, password) => api.post('/login', { email, password }),
+};
+
+// ==================== CATEGORÍAS ====================
+export const categoriasAPI = {
+  crear: (datos) => api.post('/categorias', datos),
+  listar: () => api.get('/categorias'),
+  buscar: (nombre) => api.get(`/categorias/${nombre}`),
+  actualizar: (id, datos) => api.put(`/categorias/${id}`, datos),
+  eliminar: (id) => api.delete(`/categorias/${id}`),
+};
+
+// ==================== PRODUCTOS ====================
+export const productosAPI = {
+  crear: (datos) => api.post('/productos', datos),
+  listar: () => api.get('/productos'),
+  buscar: (nombre) => api.get(`/productos/${nombre}`),
+  actualizar: (id, datos) => api.put(`/productos/${id}`, datos),
+  eliminar: (id) => api.delete(`/productos/${id}`),
+};
+
+// ==================== CARRITOS ====================
+export const carritosAPI = {
+  crear: (datos) => api.post('/carritos', datos),
+  listar: () => api.get('/carritos'),
+  buscar: (id) => api.get(`/carritos/${id}`),
+  actualizar: (id, datos) => api.put(`/carritos/${id}`, datos),
+  eliminar: (id) => api.delete(`/carritos/${id}`),
+};
+
+// ==================== CARRITO DETALLE ====================
+export const carritoDetalleAPI = {
+  crear: (datos) => api.post('/carrito-detalle', datos),
+  listar: () => api.get('/carrito-detalle'),
+  buscar: (id) => api.get(`/carrito-detalle/${id}`),
+  actualizar: (id, datos) => api.put(`/carrito-detalle/${id}`, datos),
+  eliminar: (id) => api.delete(`/carrito-detalle/${id}`),
+};
 
 export default api;

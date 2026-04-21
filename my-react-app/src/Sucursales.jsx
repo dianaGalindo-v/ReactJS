@@ -1,5 +1,4 @@
 import './Sucursales.css';
-import Mapa from './Mapa';
 
 function Sucursales() {
 
@@ -55,11 +54,15 @@ function Sucursales() {
                         <p>🕒 Lunes a Viernes: 10:00 am – 8:00 pm</p>
                         <p>🕒 Sábados: 11:00 am – 6:00 pm</p>
 
-                        <Mapa
-                            lat={sucursal.lat}
-                            lng={sucursal.lng}
-                            nombre_sucursal={sucursal.nombre}
-                        />
+                        <div style={{
+                            marginTop: '10px',
+                            padding: '10px',
+                            background: '#f0f0f0',
+                            borderRadius: '5px',
+                            fontSize: '12px'
+                        }}>
+                            📌 Coordenadas: {sucursal.lat.toFixed(4)}, {sucursal.lng.toFixed(4)}
+                        </div>
 
                     </div>
                 ))}

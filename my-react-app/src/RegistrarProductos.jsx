@@ -1,72 +1,101 @@
 import { useState, useEffect } from "react";
-import api from "./Services/Api";
+import { productosAPI, categoriasAPI } from "./Services/api";
 import "./RegistrarProductos.css";
 
 function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacionExitosa }) {
-    const [titulo, setTitulo] = useState("");
-    const [price, setPrice] = useState("");
-    const [description, setDescription] = useState("");
-    const [category, setCategory] = useState("");
-    const [image, setImage] = useState("");
+    const [nombre, setNombre] = useState("");
+    const [precio, setPrecio] = useState("");
+    const [stock, setStock] = useState("");
+    const [direccion, setDireccion] = useState("");
+    const [imagen, setImagen] = useState("");
+    const [idCategoria, setIdCategoria] = useState("");
+    const [categorias, setCategorias] = useState([]);
+    const [cargando, setCargando] = useState(false);
 
+    // Cargar categorías al montar
+    useEffect(() => {
+        cargarCategorias();
+    }, []);
+
+    // Cargar producto a editar
     useEffect(() => {
         if (productoEditado) {
-            setTitulo(productoEditado.title || "");
-            setPrice(productoEditado.price || "");
-            setDescription(productoEditado.description || "");
-            setCategory(productoEditado.category || "");
-            setImage(productoEditado.image || "");
+            setNombre(productoEditado.nombre || "");
+            setPrecio(productoEditado.precio || "");
+            setStock(productoEditado.stock || "");
+            setDireccion(productoEditado.direccion || "");
+            setImagen(productoEditado.imagen || "");
+            setIdCategoria(productoEditado.id_categoria || "");
         } else {
             limpiarFormulario();
         }
     }, [productoEditado]);
 
+    const cargarCategorias = async () => {
+        try {
+            const response = await categoriasAPI.listar();
+            setCategorias(response.data);
+        } catch (error) {
+            console.error("Error cargando categorías:", error);
+        }
+    };
+
     const limpiarFormulario = () => {
-        setTitulo("");
-        setPrice("");
-        setDescription("");
-        setCategory("");
-        setImage("");
+        setNombre("");
+        setPrecio("");
+        setStock("");
+        setDireccion("");
+        setImagen("");
+        setIdCategoria("");
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!nombre || !precio || !stock || !idCategoria) {
+            alert("⚠️ Complete los campos obligatorios");
+            return;
+        }
+
         const nuevoProducto = {
-            title: titulo,
-            price: Number(price),
-            description,
-            category,
-            image
+            nombre,
+            precio: parseFloat(precio),
+            stock: parseInt(stock),
+            direccion,
+            imagen,
+            id_categoria: parseInt(idCategoria)
         };
 
         try {
+            setCargando(true);
             let productoActualizado = null;
 
             if (productoEditado) {
-                const response = await api.put(`/products/${productoEditado.id}`, nuevoProducto);
+                const response = await productosAPI.actualizar(productoEditado.id, nuevoProducto);
                 productoActualizado = response.data;
-                alert("Producto actualizado correctamente");
+                alert("✅ Producto actualizado correctamente");
                 limpiarSeleccion();
             } else {
-                const response = await api.post("/products", nuevoProducto);
+                const response = await productosAPI.crear(nuevoProducto);
                 productoActualizado = response.data;
-                alert("Producto registrado correctamente");
+                alert("✅ Producto registrado correctamente");
             }
 
             limpiarFormulario();
 
-            // 💡 Aquí enviamos el producto actualizado al padre
+            // Notificar al padre
             if (onActualizacionExitosa) {
                 onActualizacionExitosa(productoActualizado);
             }
 
-            // 👀 Mostrar en consola
-            console.log("Producto actualizado:", productoActualizado);
+            console.log("Producto guardado:", productoActualizado);
 
         } catch (error) {
             console.error("Error:", error);
-            alert("Ocurrió un error al procesar la solicitud");
+            const mensaje = error.response?.data?.message || "Ocurrió un error al procesar la solicitud";
+            alert("❌ " + mensaje);
+        } finally {
+            setCargando(false);
         }
     };
 
@@ -77,22 +106,70 @@ function RegistrarProductos({ productoEditado, limpiarSeleccion, onActualizacion
             </h3>
 
             <form className="registro-productos__form" onSubmit={handleSubmit}>
-                <label>Título:</label>
-                <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} required />
+                <label>Nombre: *</label>
+                <input 
+                    type="text" 
+                    value={nombre} 
+                    onChange={(e) => setNombre(e.target.value)} 
+                    required 
+                    placeholder="Nombre del producto"
+                />
 
-                <label>Precio:</label>
-                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required />
+                <label>Precio: *</label>
+                <input 
+                    type="number" 
+                    step="0.01"
+                    value={precio} 
+                    onChange={(e) => setPrecio(e.target.value)} 
+                    required 
+                    placeholder="Precio"
+                />
 
-                <label>Descripción:</label>
-                <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} required />
+                <label>Stock: *</label>
+                <input 
+                    type="number" 
+                    value={stock} 
+                    onChange={(e) => setStock(e.target.value)} 
+                    required 
+                    placeholder="Cantidad en stock"
+                />
 
-                <label>Categoría:</label>
-                <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} required />
+                <label>Dirección/Descripción:</label>
+                <input 
+                    type="text" 
+                    value={direccion} 
+                    onChange={(e) => setDireccion(e.target.value)} 
+                    placeholder="Descripción del producto"
+                />
 
                 <label>Imagen (URL):</label>
-                <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
+                <input 
+                    type="text" 
+                    value={imagen} 
+                    onChange={(e) => setImagen(e.target.value)} 
+                    placeholder="https://..."
+                />
 
-                <button type="submit">{productoEditado ? "Actualizar" : "Registrar"}</button>
+                <label>Categoría: *</label>
+                <select 
+                    value={idCategoria} 
+                    onChange={(e) => setIdCategoria(e.target.value)}
+                    required
+                >
+                    <option value="">Selecciona una categoría</option>
+                    {categorias.map(cat => (
+                        <option key={cat.id} value={cat.id}>
+                            {cat.nombre}
+                        </option>
+                    ))}
+                </select>
+
+                <button 
+                    type="submit"
+                    disabled={cargando}
+                >
+                    {cargando ? "Guardando..." : (productoEditado ? "Actualizar" : "Registrar")}
+                </button>
             </form>
         </div>
     );

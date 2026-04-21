@@ -7,8 +7,16 @@ const containerStyle = {
 
 function Mapa({ lat, lng, nombre_sucursal }) {
 
+    const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
+    if (!apiKey) {
+        return <div style={{padding: '20px', background: '#f0f0f0', borderRadius: '8px', textAlign: 'center'}}>
+            ⚠️ Configura VITE_GOOGLE_MAPS_API_KEY en .env.local
+        </div>;
+    }
+
     const { isLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+        googleMapsApiKey: apiKey
     });
 
     if (loadError) return <div>Error al cargar el mapa</div>;

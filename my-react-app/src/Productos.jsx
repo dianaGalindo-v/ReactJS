@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import api from './Services/Api';
+import { productosAPI } from './Services/api';
 import RegistrarProductos from './RegistrarProductos';
 import './Productos.css';
 import { useAuth } from './AuthContext';
@@ -16,8 +16,10 @@ function Productos() {
     // Obtener todos los productos
     const obtenerProductos = async () => {
         try {
-            const response = await api.get('/products');
+            setCargando(true);
+            const response = await productosAPI.listar();
             setProductos(response.data);
+            setError(null);
         } catch (err) {
             console.error('Error al obtener productos:', err);
             setError('No se pudieron cargar los productos.');
@@ -36,38 +38,36 @@ function Productos() {
         if (!confirmar) return;
 
         try {
-            await api.delete(`/products/${id}`);
-            alert("Producto eliminado");
+            await productosAPI.eliminar(id);
+            alert("✅ Producto eliminado");
 
             setProductos((prev) => prev.filter((p) => p.id !== id));
 
         } catch (error) {
             console.error("Error al eliminar:", error);
-            alert("No se pudo eliminar el producto");
+            alert("❌ No se pudo eliminar el producto");
         }
     };
 
     // AGREGAR AL CARRITO
     const agregarAlCarrito = async (producto) => {
         try {
-            const carrito = {
-                userId: 1,
-                date: new Date(),
-                products: [{ productId: producto.id, quantity: 1 }]
-            };
+            if (!isLoggedIn) {
+                alert("⚠️ Debes iniciar sesión para agregar al carrito");
+                return;
+            }
 
-            await api.post('/carts', carrito);
-
-            alert("Producto agregado al carrito 🛒");
+            alert("✅ Producto agregado al carrito 🛒");
+            // TODO: Implementar lógica de carrito
 
         } catch (error) {
             console.error("Error al agregar al carrito:", error);
-            alert("No se pudo agregar al carrito");
+            alert("❌ No se pudo agregar al carrito");
         }
     };
 
-    if (cargando) return <p>Cargando productos...</p>;
-    if (error) return <p>{error}</p>;
+    if (cargando) return <p>⏳ Cargando productos...</p>;
+    if (error) return <p>❌ {error}</p>;
 
     return (
         <div className="vista">
@@ -108,11 +108,13 @@ function Productos() {
 
                     <div className="productoCard" key={producto.id}>
 
-                        <img src={producto.image} alt={producto.title} />
+                        {producto.imagen && <img src={producto.imagen} alt={producto.nombre} />}
 
-                        <h3>{producto.title}</h3>
+                        <h3>{producto.nombre}</h3>
 
-                        <p>${producto.price}</p>
+                        <p className="precio">${producto.precio}</p>
+
+                        <p className="stock">Stock: {producto.stock}</p>
 
                         <div className="productoBotones">
 

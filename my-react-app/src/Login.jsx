@@ -1,15 +1,16 @@
 import { useState } from "react";
 import "./Login.css";
-import api from "./Services/Api";
 import { useAuth } from "./AuthContext";
+import { usuariosAPI } from "./Services/api";
 
 function Login({ setVista }) {
 
   const { login } = useAuth();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [cargando, setCargando] = useState(false);
 
   const handleLogin = async (e) => {
 
@@ -18,27 +19,29 @@ function Login({ setVista }) {
     try {
 
       setError("");
+      setCargando(true);
 
-      const response = await api.post("/auth/login", {
-        username,
-        password
-      });
+      const response = await usuariosAPI.login(email, password);
 
       const token = response.data.token;
 
       // usamos el contexto
       login(token);
 
-      console.log("Token:", token);
+      console.log("Login exitoso:", token);
 
-      alert("Login exitoso");
+      alert("✅ Login exitoso");
+      setVista("Inicio");
 
     } catch (err) {
 
       console.error("Error en login:", err);
 
-      setError("Usuario o contraseña incorrecta");
+      const mensaje = err.response?.data?.message || "Email o contraseña incorrecta";
+      setError(mensaje);
 
+    } finally {
+      setCargando(false);
     }
   };
 
@@ -49,12 +52,12 @@ function Login({ setVista }) {
 
       <form className="login__form" onSubmit={handleLogin}>
 
-        <label>Usuario</label>
+        <label>Email</label>
         <input
-          type="text"
-          placeholder="Ingresa tu usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email"
+          placeholder="Ingresa tu email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
 
@@ -72,8 +75,9 @@ function Login({ setVista }) {
         <button
           type="submit"
           className="login__btn login__btn--acceder"
+          disabled={cargando}
         >
-          Acceder
+          {cargando ? "Cargando..." : "Acceder"}
         </button>
 
         <div className="login__extra">
@@ -84,13 +88,6 @@ function Login({ setVista }) {
             onClick={() => setVista("Registro")}
           >
             Crear cuenta
-          </button>
-
-          <button
-            type="button"
-            className="login__btn login__btn--secundario"
-          >
-            Recuperar contraseña
           </button>
 
         </div>

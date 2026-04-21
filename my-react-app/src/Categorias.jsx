@@ -1,31 +1,41 @@
 import { useEffect, useState } from "react";
+import { categoriasAPI } from "./Services/api";
+import "./Categorias.css";
 
 function Categorias() {
 
   const [categorias, setCategorias] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
 
-    fetch("https://www.themealdb.com/api/json/v1/1/categories.php")
-      .then(res => res.json())
-      .then(data => {
-
-        console.log("Categorias:", data.categories);
-
-        setCategorias(data.categories);
-
-      })
-      .catch(error => {
-        console.error("Error cargando categorias:", error);
-      });
+    obtenerCategorias();
 
   }, []);
+
+  const obtenerCategorias = async () => {
+    try {
+      setCargando(true);
+      const response = await categoriasAPI.listar();
+      setCategorias(response.data);
+      setError(null);
+    } catch (err) {
+      console.error("Error cargando categorias:", err);
+      setError("No se pudieron cargar las categorías");
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  if (cargando) return <div style={{ padding: "40px" }}>⏳ Cargando categorías...</div>;
+  if (error) return <div style={{ padding: "40px" }}>❌ {error}</div>;
 
   return (
 
     <div style={{ padding: "40px" }}>
 
-      <h2>Categorías de Comida</h2>
+      <h2>Categorías de Productos</h2>
 
       <div style={{
         display: "grid",
@@ -36,25 +46,20 @@ function Categorias() {
 
         {categorias.map((cat) => (
 
-          <div key={cat.idCategory}
+          <div key={cat.id}
             style={{
               border: "1px solid #ddd",
               borderRadius: "10px",
               padding: "15px",
-              textAlign: "center"
+              textAlign: "center",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
             }}
           >
 
-            <img
-              src={cat.strCategoryThumb}
-              alt={cat.strCategory}
-              style={{ width: "100%" }}
-            />
+            <h3>{cat.nombre}</h3>
 
-            <h3>{cat.strCategory}</h3>
-
-            <p style={{ fontSize: "14px" }}>
-              {cat.strCategoryDescription.substring(0, 100)}...
+            <p style={{ fontSize: "14px", color: "#666" }}>
+              ID: {cat.id}
             </p>
 
           </div>
