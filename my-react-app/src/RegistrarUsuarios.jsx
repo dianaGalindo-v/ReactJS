@@ -1,26 +1,27 @@
 import "./RegistrarUsuarios.css";
 import { useState, useEffect } from "react";
+import { usuariosAPI } from "./Services/api";
 
 function RegistrarUsuarios({ usuarioEditado, limpiarSeleccion, onActualizacionExitosa }) {
 
   const [usuario, setUsuario] = useState({
     nombre: "",
-    apellidos: "",
     direccion: "",
     telefono: "",
     correo: "",
-    username: ""
+    password: "",
+    rol: "cliente"
   });
 
   useEffect(() => {
     if (usuarioEditado) {
       setUsuario({
-        nombre: usuarioEditado.name.firstname || "",
-        apellidos: usuarioEditado.name.lastname || "",
-        direccion: `${usuarioEditado.address.street} ${usuarioEditado.address.number} ${usuarioEditado.address.city} ${usuarioEditado.address.zipcode}` || "",
-        telefono: usuarioEditado.phone || "",
+        nombre: usuarioEditado.nombre || "",
+        direccion: usuarioEditado.direccion || "",
+        telefono: usuarioEditado.telefono || "",
         correo: usuarioEditado.email || "",
-        username: usuarioEditado.username || ""
+        password: usuarioEditado.password || "",
+        rol: usuarioEditado.rol || "cliente"
       });
     } else {
       limpiarFormulario();
@@ -30,11 +31,11 @@ function RegistrarUsuarios({ usuarioEditado, limpiarSeleccion, onActualizacionEx
   const limpiarFormulario = () => {
     setUsuario({
       nombre: "",
-      apellidos: "",
       direccion: "",
       telefono: "",
       correo: "",
-      username: ""
+      password: "",
+      rol: "cliente"
     });
   };
 
@@ -50,31 +51,24 @@ function RegistrarUsuarios({ usuarioEditado, limpiarSeleccion, onActualizacionEx
 
     try {
       let usuarioActualizado = null;
+      const datos = {
+        nombre: usuario.nombre,
+        direccion: usuario.direccion,
+        telefono: usuario.telefono,
+        email: usuario.correo,
+        password: usuario.password || usuarioEditado?.password || "123456",
+        rol: usuario.rol,
+        fecha_registro: usuarioEditado ? usuarioEditado.fecha_registro : new Date()
+      };
 
       if (usuarioEditado) {
-        // Aquí podrías hacer PUT a tu API si la tienes
-        // Por ahora simulamos la actualización:
-        usuarioActualizado = {
-          ...usuarioEditado,
-          name: { firstname: usuario.nombre, lastname: usuario.apellidos },
-          address: { ...usuarioEditado.address, street: usuario.direccion }, // ajusta si quieres separar street/number/city
-          phone: usuario.telefono,
-          email: usuario.correo,
-          username: usuario.username
-        };
+        const response = await usuariosAPI.actualizar(usuarioEditado.id, datos);
+        usuarioActualizado = response.data;
         alert("Usuario actualizado correctamente");
         limpiarSeleccion();
       } else {
-        // POST a la API para registrar
-        // Simulación:
-        usuarioActualizado = {
-          id: Math.floor(Math.random() * 10000),
-          name: { firstname: usuario.nombre, lastname: usuario.apellidos },
-          address: { street: usuario.direccion, number: "", city: "", zipcode: "" },
-          phone: usuario.telefono,
-          email: usuario.correo,
-          username: usuario.username
-        };
+        const response = await usuariosAPI.crear(datos);
+        usuarioActualizado = response.data;
         alert("Usuario registrado correctamente");
       }
 
@@ -97,11 +91,14 @@ function RegistrarUsuarios({ usuarioEditado, limpiarSeleccion, onActualizacionEx
       <h2>{usuarioEditado ? "Editar Usuario" : "Registrar Usuario"}</h2>
       <form onSubmit={handleSubmit}>
         <input type="text" name="nombre" placeholder="Nombre" value={usuario.nombre} onChange={handleChange} required />
-        <input type="text" name="apellidos" placeholder="Apellidos" value={usuario.apellidos} onChange={handleChange} required />
         <input type="text" name="direccion" placeholder="Dirección" value={usuario.direccion} onChange={handleChange} required />
         <input type="tel" name="telefono" placeholder="Teléfono" value={usuario.telefono} onChange={handleChange} required />
         <input type="email" name="correo" placeholder="Correo" value={usuario.correo} onChange={handleChange} required />
-        <input type="text" name="username" placeholder="Username" value={usuario.username} onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Contraseña" value={usuario.password} onChange={handleChange} required={!usuarioEditado} />
+        <select name="rol" value={usuario.rol} onChange={handleChange}>
+          <option value="cliente">Cliente</option>
+          <option value="admin">Admin</option>
+        </select>
         <button type="submit">{usuarioEditado ? "Actualizar" : "Registrar"}</button>
       </form>
     </div>

@@ -54,7 +54,7 @@ export const productosAPI = {
 // ==================== CARRITOS ====================
 export const carritosAPI = {
   crear: (datos) => api.post('/carritos', datos),
-  listar: () => api.get('/carritos'),
+  listar: (params) => api.get('/carritos', { params }),
   buscar: (id) => api.get(`/carritos/${id}`),
   actualizar: (id, datos) => api.put(`/carritos/${id}`, datos),
   eliminar: (id) => api.delete(`/carritos/${id}`),
@@ -63,7 +63,7 @@ export const carritosAPI = {
 // ==================== CARRITO DETALLE ====================
 export const carritoDetalleAPI = {
   crear: (datos) => api.post('/carrito-detalle', datos),
-  listar: () => api.get('/carrito-detalle'),
+  listar: (params) => api.get('/carrito-detalle', { params }),
   buscar: (id) => api.get(`/carrito-detalle/${id}`),
   actualizar: (id, datos) => api.put(`/carrito-detalle/${id}`, datos),
   eliminar: (id) => api.delete(`/carrito-detalle/${id}`),

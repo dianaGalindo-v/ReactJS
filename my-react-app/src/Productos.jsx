@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { productosAPI } from './Services/api';
+import { productosAPI, carritosAPI, carritoDetalleAPI } from './Services/api';
 import RegistrarProductos from './RegistrarProductos';
 import './Productos.css';
 import { useAuth } from './AuthContext';
 
 function Productos() {
 
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, role, userId } = useAuth();
+    const isAdmin = role === 'admin';
 
     const [productos, setProductos] = useState([]);
     const [cargando, setCargando] = useState(true);
@@ -53,12 +54,60 @@ function Productos() {
     const agregarAlCarrito = async (producto) => {
         try {
             if (!isLoggedIn) {
-                alert("⚠️ Debes iniciar sesión para agregar al carrito");
+                alert("⚠️ Debes iniciar sesión para agregar productos al carrito.");
                 return;
             }
 
+            if (producto.stock <= 0) {
+                alert("⚠️ El producto no tiene stock disponible");
+                return;
+            }
+
+            const carritoResponse = await carritosAPI.listar({ id_usuario: userId });
+            const carritos = Array.isArray(carritoResponse.data) ? carritoResponse.data : [];
+            let carrito = carritos[carritos.length - 1];
+
+            if (!carrito) {
+                const crearCarrito = await carritosAPI.crear({
+                    total: 0,
+                    estado: 'abierto',
+                    fecha_creacion: new Date().toISOString(),
+                    id_usuario: userId,
+                });
+                carrito = crearCarrito.data;
+            }
+
+            const detalleResponse = await carritoDetalleAPI.listar({
+                id_carrito: carrito.id,
+                id_producto: producto.id,
+            });
+            const detalleExistente = Array.isArray(detalleResponse.data) ? detalleResponse.data[0] : null;
+
+            if (detalleExistente) {
+                await carritoDetalleAPI.actualizar(detalleExistente.id, {
+                    precio_unitario: producto.precio,
+                    cantidad: detalleExistente.cantidad + 1,
+                    id_carrito: carrito.id,
+                    id_producto: producto.id,
+                });
+            } else {
+                await carritoDetalleAPI.crear({
+                    precio_unitario: producto.precio,
+                    cantidad: 1,
+                    id_carrito: carrito.id,
+                    id_producto: producto.id,
+                });
+            }
+
+            const nuevoTotal = parseFloat(carrito.total || 0) + parseFloat(producto.precio);
+            await carritosAPI.actualizar(carrito.id, {
+                total: nuevoTotal,
+                estado: carrito.estado || 'abierto',
+                fecha_creacion: carrito.fecha_creacion || new Date().toISOString(),
+                id_usuario: carrito.id_usuario || 1,
+            });
+
             alert("✅ Producto agregado al carrito 🛒");
-            // TODO: Implementar lógica de carrito
 
         } catch (error) {
             console.error("Error al agregar al carrito:", error);
@@ -72,8 +121,8 @@ function Productos() {
     return (
         <div className="vista">
 
-            {/* FORMULARIO SOLO SI ESTÁ LOGUEADO */}
-            {isLoggedIn && (
+            {/* FORMULARIO SOLO SI ES ADMIN */}
+            {isAdmin && (
                 <RegistrarProductos
                     productoEditado={productoSeleccionado}
                     limpiarSeleccion={() => setProductoSeleccionado(null)}
@@ -116,35 +165,37 @@ function Productos() {
 
                         <p className="stock">Stock: {producto.stock}</p>
 
-                        <div className="productoBotones">
+                                        <div className="productoBotones">
 
-                            <button
-                                className="btnCarrito"
-                                onClick={() => agregarAlCarrito(producto)}
-                            >
-                                Añadir al carrito
-                            </button>
+                                {!isAdmin && (
+                                  <button
+                                      className="btnCarrito"
+                                      onClick={() => agregarAlCarrito(producto)}
+                                  >
+                                      Añadir al carrito
+                                  </button>
+                                )}
 
-                            {/* BOTONES SOLO SI ESTÁ LOGUEADO */}
-                            {isLoggedIn && (
-                                <>
-                                    <button
-                                        className="btnEditar"
-                                        onClick={() => setProductoSeleccionado(producto)}
-                                    >
-                                        Editar
-                                    </button>
+                                {/* SOLO ADMIN PUEDE VER EDITAR/ELIMINAR */}
+                                {isAdmin && (
+                                    <>
+                                        <button
+                                            className="btnEditar"
+                                            onClick={() => setProductoSeleccionado(producto)}
+                                        >
+                                            Editar
+                                        </button>
 
-                                    <button
-                                        className="btnEliminar"
-                                        onClick={() => eliminarProducto(producto.id)}
-                                    >
-                                        Eliminar
-                                    </button>
-                                </>
-                            )}
+                                        <button
+                                            className="btnEliminar"
+                                            onClick={() => eliminarProducto(producto.id)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </>
+                                )}
 
-                        </div>
+                            </div>
 
                     </div>
 

@@ -26,7 +26,8 @@ function Logo() {
 
 function Menu({ setVista }) {
 
-    const { isLoggedIn, logout } = useAuth();
+    const { isLoggedIn, role, logout } = useAuth();
+    const isAdmin = role === 'admin';
 
     return (
         <div className="MenuDiv">
@@ -42,7 +43,9 @@ function Menu({ setVista }) {
                     <>
                         <li onClick={() => setVista("Categoria")}>Categorías</li>
                         <li onClick={() => setVista("Carrito")}>Carrito</li>
-                        <li onClick={() => setVista("Usuarios")}>Usuarios</li>
+                        {isAdmin && (
+                          <li onClick={() => setVista("Usuarios")}>Usuarios</li>
+                        )}
                         <li onClick={logout}>Cerrar sesión</li>
                     </>
                 ) : (

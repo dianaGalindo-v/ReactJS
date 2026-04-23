@@ -1,6 +1,6 @@
 import './Usuario.css';
 import { useEffect, useState } from 'react';
-import api from './Services/Api';
+import { usuariosAPI } from './Services/api';
 import RegistrarUsuarios from './RegistrarUsuarios';
 
 function Usuario() {
@@ -11,7 +11,7 @@ function Usuario() {
   useEffect(() => {
     const obtenerUsuarios = async () => {
       try {
-        const response = await api.get('/users');
+        const response = await usuariosAPI.listar();
         setUsuarios(response.data);
       } catch (error) {
         console.error('Error al obtener usuarios', error);
@@ -23,10 +23,13 @@ function Usuario() {
   }, []);
 
   const handleActualizacion = (usuarioActualizado) => {
-    // 🔄 Actualiza la tabla inmediatamente
-    setUsuarios((prev) =>
-      prev.map((u) => (u.id === usuarioActualizado.id ? usuarioActualizado : u))
-    );
+    setUsuarios((prev) => {
+      const existe = prev.some((u) => u.id === usuarioActualizado.id);
+      if (existe) {
+        return prev.map((u) => (u.id === usuarioActualizado.id ? usuarioActualizado : u));
+      }
+      return [...prev, usuarioActualizado];
+    });
   };
 
   if (cargando) return <p>Cargando usuarios.......</p>;
@@ -44,11 +47,10 @@ function Usuario() {
         <thead>
           <tr>
             <th>Nombre</th>
-            <th>Apellidos</th>
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Correo</th>
-            <th>Username</th>
+            <th>Rol</th>
             <th>Editar</th>
             <th>Eliminar</th>
           </tr>
@@ -56,12 +58,11 @@ function Usuario() {
         <tbody>
           {usuarios.map((usuario) => (
             <tr key={usuario.id}>
-              <td>{usuario.name.firstname}</td>
-              <td>{usuario.name.lastname}</td>
-              <td>{usuario.address.street}</td>
-              <td>{usuario.phone}</td>
+              <td>{usuario.nombre}</td>
+              <td>{usuario.direccion}</td>
+              <td>{usuario.telefono}</td>
               <td>{usuario.email}</td>
-              <td>{usuario.username}</td>
+              <td>{usuario.rol}</td>
               <td>
                 <button
                   className="editar"
